@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Моя страница</title>
+  <link rel="stylesheet" href="styles.css">
+  
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-tables-2@2.3.5/dist/vue-tables-2.min.js"></script>
+ 
+</head>
+<body>
+  <div id="CTable">
+        <div class="container">
+          <div class="perPage">
+            <label>Отображать по:</label>
+            <button
+              v-for="perPageValue in options.perPageValues"
+              :key="perPageValue"
+              @click="setPerPage(perPageValue)"
+              class="perPageValue"
+              :class="{ active: perPageValue === options.perPage }"
+            >
+            {{ perPageValue }}
+            </button>
+          </div>
+          <v-client-table :data="transformedCountries" :key="options.perPage" :columns="columns" :options="options" class="ctable"></v-client-table>
+        </div>
+      
+
+  </div>
+
+  <script defer>
+    Vue.use(VueTables.ClientTable);
+      new Vue({
+      el: '#CTable',
+      data() {
+        return {
+            filter: '',
+            countries: [
+            {
+              iso_3166_1_a2: "RU",
+              iso_3166_1_a3: "RUS",
+              iso_3166_1_numeric: "643",
+              printable_name: "Russian Federation",
+              name: "Россия",
+              display_order: 0,
+              is_shipping_country: true,
+            },
+            {
+              iso_3166_1_a2: "EN",
+              iso_3166_1_a3: "ENG",
+              iso_3166_1_numeric: "826",
+              printable_name: "The United Kingdom",
+              name: "Великобритания",
+              display_order: 0,
+              is_shipping_country: false,
+            },
+            {
+              iso_3166_1_a2: "US",
+              iso_3166_1_a3: "USA",
+              iso_3166_1_numeric: "840",
+              printable_name: "United States of America",
+              name: "Соединенные Штаты Америки",
+              display_order: 0,
+              is_shipping_country: true,
+              },
+              {
+              iso_3166_1_a2: "CN",
+              iso_3166_1_a3: "CHN",
+              iso_3166_1_numeric: "156",
+              printable_name: "People's Republic of China",
+              name: "Китай",
+              display_order: 0,
+              is_shipping_country: false,
+            },
+            {
+              iso_3166_1_a2: "IN",
+              iso_3166_1_a3: "IND",
+              iso_3166_1_numeric: "356",
+              printable_name: "India",
+              name: "Индия",
+              display_order: 0,
+              is_shipping_country: false,
+            },
+            {
+              iso_3166_1_a2: "BR",
+              iso_3166_1_a3: "BRA",
+              iso_3166_1_numeric: "76",
+              printable_name: "Brazil",
+              name: "Бразилия",
+              display_order: 0,
+              is_shipping_country: true,
+            },
+            {
+              iso_3166_1_a2: "FR",
+              iso_3166_1_a3: "FRA",
+              iso_3166_1_numeric: "250",
+              printable_name: "France",
+              name: "Франция",
+              display_order: 0,
+              is_shipping_country: false,
+            },
+            {
+              iso_3166_1_a2: "DE",
+              iso_3166_1_a3: "DEU",
+              iso_3166_1_numeric: "276",
+              printable_name: "Germany",
+              name: "Германия",
+              display_order: 0,
+              is_shipping_country: false,
+            },
+            {
+              iso_3166_1_a2: "JP",
+              iso_3166_1_a3: "JPN",
+              iso_3166_1_numeric: "392",
+              printable_name: "Japan",
+              name: "Япония",
+              display_order: 0,
+              is_shipping_country: true,
+            },
+            {
+              iso_3166_1_a2: "KR",
+              iso_3166_1_a3: "KOR",
+              iso_3166_1_numeric: "410",
+              printable_name: "Republic of Korea",
+              name: "Южная Корея",
+              display_order: 0,
+              is_shipping_country: false,
+            },
+            {
+              iso_3166_1_a2: "GB",
+              iso_3166_1_a3: "GBR",
+              iso_3166_1_numeric: "826",
+              printable_name: "United Kingdom",
+              name: "Великобритания",
+              display_order: 0,
+              is_shipping_country: false,
+            },
+            {
+              iso_3166_1_a2: "CA",
+              iso_3166_1_a3: "CAN",
+              iso_3166_1_numeric: "124",
+              printable_name: "Canada",
+              name: "Канада",
+              display_order: 0,
+              is_shipping_country: true,
+            },
+            {
+              iso_3166_1_a2: "AU",
+              iso_3166_1_a3: "AUS",
+              iso_3166_1_numeric: "36",
+              printable_name: "Australia",
+              name: "Австралия",
+              display_order: 0,
+              is_shipping_country: false,
+            },
+            {
+              iso_3166_1_a2: "IT",
+              iso_3166_1_a3: "ITA",
+              iso_3166_1_numeric: "380",
+              printable_name: "Italy",
+              name: "Италия",
+              display_order: 0,
+              is_shipping_country: false,
+            },
+            {
+              iso_3166_1_a2: "ES",
+              iso_3166_1_a3: "ESP",
+              iso_3166_1_numeric: "724",
+              printable_name: "Spain",
+              name: "Испания",
+              display_order: 0,
+              is_shipping_country: true,
+            },
+            {
+              iso_3166_1_a2: "MX",
+              iso_3166_1_a3: "MEX",
+              iso_3166_1_numeric: "484",
+              printable_name: "Mexico",
+              name: "Мексика",
+              display_order: 0,
+              is_shipping_country: false,
+            }
+            ], 
+            rpag: {},
+            columns: ['iso_3166_1_a2','iso_3166_1_a3', 'iso_3166_1_numeric', 'printable_name', 'name', 'is_shipping_country'],
+            options: {
+              filterable: ['iso_3166_1_a2', 'iso_3166_1_a3', 'iso_3166_1_numeric', 'printable_name', 'name', 'display_order', 'is_shipping_country'],
+              perPage: 10,
+              perPageValues: [10, 15, 50],
+              headings: {
+                iso_3166_1_a2: 'Двузначный код страны',
+                iso_3166_1_a3: 'Трехзначный код страны',
+                iso_3166_1_numeric: 'Числовой код страны',
+                printable_name: 'Полное название',
+                name: '',
+                display_order: '',
+                is_shipping_country: 'Доставка'
+              }
+            }
+          }
+          
+      },
+        computed: {
+        transformedCountries() {
+          return this.countries.map(country => ({
+            ...country,
+            is_shipping_country: country.is_shipping_country ? 'Есть' : 'Нет'
+          }));
+        }
+      },
+        methods: {
+          setPerPage(value) {
+            this.$set(this.options, 'perPage', value);
+          }
+        },
+    });
+  </script>
+</body>
+</html>
