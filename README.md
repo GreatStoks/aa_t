@@ -1,4 +1,3 @@
-# aa_t
 #  "form_errors": null,
   наличие ошибок в форме
 #  "success_message": "Success",
